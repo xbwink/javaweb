@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>添加品牌</title>
+</head>
+<body>
+<div id="app">
+    <h3>添加品牌</h3>
+    <form action="" method="post">
+        品牌名称：<input id="brandName" name="brandName" v-model="brand.brandName"><br>
+        企业名称：<input id="companyName" name="companyName" v-model="brand.companyName"><br>
+        排序：<input id="ordered" name="ordered" v-model="brand.ordered"><br>
+        描述信息：<textarea rows="5" cols="20" id="description" name="description" v-model="brand.description"></textarea><br>
+        状态：
+        <input type="radio" name="status" value="0" v-model="brand.status">禁用
+        <input type="radio" name="status" value="1" v-model="brand.status">启用<br>
+
+        <input type="button" id="btn" @click="subMethod" value="提交">
+    </form>
+</div>
+
+
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script>
+
+    //使用vue
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                brand:{}
+            }
+        },
+        methods: {
+            subMethod() {
+                var _this = this;
+                //页面加载完成使用axios发送请求
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/brand_json/addServlet",
+                    data: _this.brand
+                }).then(function (resp) {
+                    if (resp.data = "success") {
+                        //添加成功跳转至brand.html
+                        location.href = "http://localhost:8080/brand_json/brand.html";
+                    }
+                })
+            }
+        }
+
+    })
+
+    // //绑定提交按钮单击事件
+    // document.getElementById("btn").onclick = function (){
+    //     //定义json对象
+    //     let json = {
+    //         brandName:document.getElementById("brandName").value,
+    //         companyName:document.getElementById("companyName").value,
+    //         ordered:document.getElementById("ordered").value,
+    //         description:document.getElementById("description").value,
+    //         status:""
+    //     };
+    //     var elementsByName = document.getElementsByName("status");
+    //     for (let i = 0; i < elementsByName.length; i++) {
+    //         if(elementsByName[i].checked){
+    //             json.status = elementsByName[i].value;
+    //         }
+    //     }
+    //
+    //     //发送axios请求
+    //     axios({
+    //         method:"post",
+    //         url:"http://localhost:8080/brand_json/addServlet",
+    //         data:json
+    //     }).then(function (resp){
+    //         if(resp.data = "success"){
+    //             //添加成功跳转至brand.html
+    //             location.href = "http://localhost:8080/brand_json/brand.html";
+    //         }
+    //     })
+    //
+    // }
+</script>

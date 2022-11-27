@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="demo">
+    <h2>让 AJAX 更改这段文本</h2>
+    <button type="button" onclick="loadDoc()">更改文本</button>
+</div>
+
+</body>
+</html>
+<script src="js/axios-0.18.0.js"></script>
+<script>
+    // function loadDoc() {
+    //     var xhttp = new XMLHttpRequest();
+    //     xhttp.onreadystatechange = function() {
+    //         if (this.readyState == 4 && this.status == 200) {
+    //             document.getElementById("demo").innerHTML = this.responseText;
+    //         }
+    //     };
+    //     xhttp.open("GET", "http://localhost:8080/ajax_demo/ajaxServlet", true);
+    //     xhttp.send();
+    // }
+
+    //使用axios简化ajax
+    function loadDoc() {
+        axios({
+            method: "get",
+            url: "http://localhost:8080/ajax_demo/ajaxServlet?username=zhangsan"
+        }).then(function (resp) {
+            document.getElementById("demo").innerHTML = resp.data;
+        });
+    }
+</script>
